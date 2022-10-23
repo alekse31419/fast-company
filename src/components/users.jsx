@@ -25,7 +25,7 @@ const Users = () => {
   return (
     <div className="p-3">
       <h2>{renderPhrase(users.length)}</h2>
-      {users.length ? (
+      {users.length > 0 && (
         <table className="table align-middle mt-4">
           <thead>
             <tr>
@@ -38,27 +38,25 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              users.map(user => {
-                return (
-                  <tr key={user._id}>
-                    <td>{user.name}</td>
-                    <td>
-                      <div className="d-flex gap-2">{user.qualities.map(q => <span key={q._id} className={`badge bg-${q.color}`}>{q.name}</span>)}</div>
-                    </td>
-                    <td>{user.profession.name}</td>
-                    <td>{user.completedMeetings}</td>
-                    <td>{user.rate}</td>
-                    <td className="text-center">
-                      <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>Удалить</button>
-                    </td>
-                  </tr>
-                );
-              })
-            }
+            {users.map(user => {
+              return (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>
+                    <div className="d-flex gap-2">{user.qualities.map(q => <span key={q._id} className={`badge bg-${q.color}`}>{q.name}</span>)}</div>
+                  </td>
+                  <td>{user.profession.name}</td>
+                  <td>{user.completedMeetings}</td>
+                  <td>{user.rate}</td>
+                  <td className="text-center">
+                    <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>Удалить</button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-      ) : ''}
+      )}
     </div>
   )
 }
