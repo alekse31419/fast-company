@@ -17,17 +17,6 @@ const Users = () => {
     return <span className={bgClass}>{text}</span>
   }
 
-  const renderQualities = (user) => {
-    const qualities = user.qualities.map(quality => {
-      const className = `badge bg-${quality.color}`;
-      return (
-        <span key={quality._id} className={className}>{quality.name}</span>
-      );
-    });
-
-    return <div className="d-flex gap-2">{qualities}</div>
-  }
-
   const handleDelete = (userId) => {
     setUsers(users.filter(user => user._id !== userId));
   }
@@ -54,11 +43,15 @@ const Users = () => {
                 return (
                   <tr key={user._id}>
                     <td>{user.name}</td>
-                    <td>{renderQualities(user)}</td>
+                    <td>
+                      <div className="d-flex gap-2">{user.qualities.map(q => <span key={q._id} className={`badge bg-${q.color}`}>{q.name}</span>)}</div>
+                    </td>
                     <td>{user.profession.name}</td>
                     <td>{user.completedMeetings}</td>
                     <td>{user.rate}</td>
-                    <td className="text-center"><button className="btn btn-danger" onClick={() => handleDelete(user._id)}>Удалить</button></td>
+                    <td className="text-center">
+                      <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>Удалить</button>
+                    </td>
                   </tr>
                 );
               })
